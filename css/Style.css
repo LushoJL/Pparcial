@@ -1,12 +1,24 @@
 body{
-    min-height: 100vh;
-    margin: 0;
-    background: radial-gradient(circle closest-corner at 70% 10%, #59636f ,#383c45 );
-}
-.headernav{
 
-    height: 80px;
-    background: radial-gradient(circle ,#30363e ,#30363e );
-    border: #1c7430 1px;
+}
+.DivStyleVue{
+    border: #1e7e34 solid 3px;
+    border-radius: 20px;
+    filter:alpha(opacity=50);
+    opacity:0.5;
+
+}
+.DivStyleReact{
+    border: #7abaff solid 3px;
+    border-radius: 20px;
+    filter:alpha(opacity=50);
+    opacity:0.5;
+
+}
+.DivStyleAngular{
+    border: #721c24 solid 3px;
+    border-radius: 20px;
+    filter:alpha(opacity=50);
+    opacity:0.5;
 
 }
