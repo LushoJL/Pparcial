@@ -36,7 +36,7 @@ header{
     background-position: center;
     background-size: cover;
     min-height: 500px;
-    background-image: url(https://openwebinars.net/static/images/home/xfondo-home.jpg.pagespeed.ic.Ln58XjcDcY.webp);
+    background-image: url("../imagen/xfondo.webp");
     background-repeat: no-repeat;
     position: relative;
     z-index: 1;
@@ -58,11 +58,11 @@ header{
     margin-top: 50px;
 
     position: relative;
-    animation-name: example;
+    animation-name: vuereactangular;
     animation-duration: 6s;
 
 }
-@keyframes example {
+@keyframes vuereactangular {
     0%{
         transform: translatey(-200%);
     }
@@ -89,6 +89,28 @@ header{
 .section2{
 
 }
+.card{
+    border-radius: 30px;
+}
+button:hover{
+
+    border-bottom: deeppink solid 3px;
+    animation-name: botones;
+    animation-duration: 1s;
+
+}
+@keyframes botones {
+0%,20%,40%,60%,80%{
+    transform: translateX(-1px);
+}
+    10%,30%,50%,70%,90%{
+        transform: translateX(1px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+}
+
 
 .footer{
 
@@ -99,3 +121,4 @@ header{
     margin-top: 20px;
 
 }
+
