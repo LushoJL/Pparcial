@@ -4,12 +4,11 @@
 header{
     background: black;
 
-    border-radius: 10px;
+    /*border-radius: 10px;*/
+
 
 }
-nav{
 
-}
 
 .bordR {
 
@@ -23,17 +22,32 @@ nav{
 }
 /*fin header*/
 
+.active{
+    background: deeppink;
+    border: deeppink solid 1px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
 /*cuerpo*/
 /*seccion 1*/
 .banner{
+    width: 100%;
 
-
-    background-image: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(255, 234, 247), rgb(255, 213, 238), rgb(255, 192, 230), rgb(255, 171, 221), rgb(255, 150, 213), rgb(255, 125, 209), rgb(255, 100, 206), rgb(255, 75, 202), rgb(255, 50, 198), rgb(255, 25, 195), rgb(255, 0, 191));
-
+    background-position: center;
+    background-size: cover;
+    min-height: 500px;
+    background-image: url(https://openwebinars.net/static/images/home/xfondo-home.jpg.pagespeed.ic.Ln58XjcDcY.webp);
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+    border-top: deeppink solid 3px;
+    border-bottom: deeppink solid 3px;
 }
+
+
 .titulo{
-    color: black;
-    margin-left: 15px;
+    color: white;
+    margin-left: 25px;
     margin-top: 50px;
     font-size:5vw;
     font-family: 'Anton', sans-serif;
@@ -73,7 +87,7 @@ nav{
 
 /*seccion 2*/
 .section2{
-ma
+
 }
 
 .footer{
