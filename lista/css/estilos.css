@@ -11,90 +11,41 @@ body {
 	z-index: 1;
 
 }
-.container1{
-	width: 60%;
-	height: 140px;
-
-	margin: auto;
-	margin-top: 0;
-	margin-bottom: 20px;
-
-
+header{
+	border-bottom:deeppink solid 3px;
 }
-.wrap {
-	margin: auto;
-	max-width: 800px;
-	width: 90%;
+.btn-color{
+	background-color: deeppink;
+	margin-left: 30%;
+	color: white;
 }
 
-.principal {
-
-
-	color: #fff;
-	padding: 50px 0;
-	width: 100%;
+.lista{
+	font-size: 25px;
+}
+ol li {
+	list-style-type: none;
+	counter-increment: lista; /* Un nombre identificativo que te guste */
+	position: relative;
 }
 
-.principal .formulario {
+ol li::before {
+	color: white;
+	content: counter(lista) "-"; /* Indica el separador para tu contenido */
+	left: -32px;
+	position: absolute;
+	text-align: right;
+	width: 26px;
+}
+
+a:hover {
 	color: red;
-	text-align: center;
-}
-
-.principal .formulario input[type=text] {
-/margin-bottom: 20px;/
-padding: 10px;
-	width: 80%;
-}
-
-.principal .formulario input[type=text].error {
-	border: 5px solid #D32F2F;
-	color: red;
-}
-
-.principal .formulario .boton {
-	background: black;
-	border: 1px solid black;
-	color: #fff;
-	border-radius: 20px;
-	font-size: 16px;
-	padding: 10px;
-}
-
-input{
-	border-radius: 20px;
-	height: 30px;
-
-
-}
-
-.tareas{
-
-	width: 40%;
-
-	margin: auto;
-
-
-
-}
-.tareas .lista {
-	list-style: none;
-}
-
-.tareas .lista li {
-	border-bottom: 1px solid #B6B6B6;
-}
-
-.tareas .lista li a {
-	color: #212121;
-	display: block;
-	padding: 20px 0;
 	text-decoration: none;
-}
 
-.tareas .lista li a:hover {
-	text-decoration: line-through;
 }
-
+a{
+	color: white;
+}
 footer {
 
 	position: absolute;

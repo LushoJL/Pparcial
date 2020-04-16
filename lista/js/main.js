@@ -13,7 +13,7 @@
 
 		if (tarea === "") {
 			tareaInput.setAttribute("placeholder", "Agrega una tarea valida");
-			tareaInput.className = "error";
+			tareaInput.className = "form-control is-invalid";
 			return false;
 		}
 
@@ -32,7 +32,7 @@
 
 	};
 	var comprobarInput = function(){
-		tareaInput.className = "";
+		 tareaInput.className = "form-control";//aqui es la cosa
 		teareaInput.setAttribute("placeholder", "Agrega tu tarea");
 	};
 
