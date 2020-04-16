@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 /*header*/
 header{
@@ -42,6 +43,11 @@ header{
     z-index: 1;
     border-top: deeppink solid 3px;
     border-bottom: deeppink solid 3px;
+}
+.logo{
+    font-family: 'Dancing Script', cursive;
+    font-weight: 600;
+    font-size:30px;
 }
 
 
