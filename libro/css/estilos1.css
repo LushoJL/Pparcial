@@ -1,0 +1,47 @@
+body{
+    background-color: chocolate;
+    font-family: sans-serif;
+
+}
+#portada, #contra{
+    text-align: center;
+    background-color: #1066a0ce;
+    padding: 20px;
+    height: 560px;
+
+}
+#pagina1{
+    text-align: center;
+
+}
+#pagina2{
+    background-color: #0e8abe;
+
+}
+
+#pagina1 h3{
+    text-align: left;
+}
+.pagina{
+    padding: 30px;
+    height: 540px;
+}
+
+
+
+.b-wrap .b-counter{
+    background-color: #046088;
+    margin-left: 40%;
+    margin-right: 40%;
+    color: #fff;
+}
+#wrapper{
+    padding-top: 40px;
+}
+#gotopage{
+    text-align: center;
+}
+#in_go{
+    width: 40px;
+    margin-right: 10px;
+}
