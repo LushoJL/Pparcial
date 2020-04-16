@@ -1,6 +1,12 @@
 body{
-    background-color: chocolate;
     font-family: sans-serif;
+    background-position: center;
+    background-size: cover;
+    min-height: 500px;
+    background-image: url("../../imagen/xfondo.webp");
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
 
 }
 #portada, #contra{
@@ -9,13 +15,28 @@ body{
     padding: 20px;
     height: 560px;
 
+
+
 }
 #pagina1{
     text-align: center;
 
+
+}
+.espiral1{
+    border-right: black dashed 16px;
+}
+.espiral2{
+    border-left: black dashed 16px;
+}
+.page{
+    width: 325px;
+    height: 340px;
+    border: red 5px double;
 }
 #pagina2{
     background-color: #0e8abe;
+
 
 }
 

@@ -2,7 +2,9 @@ $(document).ready(init);
 
 function init(){
     $(mi_libro).booklet(
+
         {
+            arrows: true,
             width:800,
             heigh:600,
 
