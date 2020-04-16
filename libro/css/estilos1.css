@@ -9,19 +9,27 @@ body{
     z-index: 1;
 
 }
+header{
+    border-bottom: deeppink solid 3px;
+}
+
 #portada, #contra{
     text-align: center;
-    background-color: #1066a0ce;
+    background: rgb(255,0,249);
+    background: radial-gradient(circle, rgba(255,0,249,1) 0%, rgba(118,9,121,1) 35%, rgba(9,9,9,1) 100%);
     padding: 20px;
     height: 560px;
-
-
-
+    color: white;
 }
-#pagina1{
-    text-align: center;
 
+#portada{
+    border-top:white solid 1px;
+    border-right:white solid 5px;
+}
+#contra{
 
+    border-top:white solid 1px;
+    border-left:white solid 5px;
 }
 .espiral1{
     border-right: black dashed 16px;
@@ -42,6 +50,9 @@ body{
 
 #pagina1 h3{
     text-align: left;
+}
+h1{
+    color: white;
 }
 .pagina{
     padding: 30px;
@@ -64,5 +75,14 @@ body{
 }
 #in_go{
     width: 40px;
-    margin-right: 10px;
+    border-top: none;
+    border-radius: 20px;
+}
+button{
+    color: white;
+    border: deeppink solid 2px;
+    width: 120px;
+    height: 30px;
+    background:deeppink;
+    border-radius: 20px;
 }
