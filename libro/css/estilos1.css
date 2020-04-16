@@ -95,3 +95,18 @@ footer {
     height: 40px;
 
 }
+.animation{
+    animation-name: libro;
+    animation-duration: 2s;
+}
+@keyframes libro {
+    0%{
+        transform: translateY(-100%);
+    }
+    40%{
+        transform: translateY(25%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}

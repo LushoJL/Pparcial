@@ -36,13 +36,23 @@ header{
 
     background-position: center;
     background-size: cover;
-    min-height: 500px;
+    min-height: 600px;
     background-image: url("../imagen/xfondo.webp");
     background-repeat: no-repeat;
     position: relative;
     z-index: 1;
     border-top: deeppink solid 3px;
     border-bottom: deeppink solid 3px;
+    animation-name: banner;
+    animation-duration: 1s;
+}
+@keyframes banner {
+    0%{
+        transform: translatey(-100%);
+    }
+    100%{
+        transform: translateY(0);
+    }
 }
 .logo{
     font-family: 'Dancing Script', cursive;
@@ -57,6 +67,20 @@ header{
     margin-top: 50px;
     font-size:5vw;
     font-family: 'Anton', sans-serif;
+    animation-name: Titulo ;
+    animation-duration:2s ;
+}
+@keyframes Titulo {
+    0%{transform: translateX(-100%) }
+    100%{transform: translateX(0) }
+}
+.introduction{
+    animation-name: Introduccion ;
+    animation-duration:2s ;
+}
+@keyframes Introduccion {
+    0%{transform: translateX(100%) }
+    100%{transform: translateX(0) }
 }
 .img1{
     width: 100%;
@@ -65,29 +89,12 @@ header{
 
     position: relative;
     animation-name: vuereactangular;
-    animation-duration: 6s;
+    animation-duration: 2s;
 
 }
 @keyframes vuereactangular {
-    0%{
-        transform: translatey(-200%);
-    }
-    10%, 30%, 50%, 70%,100%{
-        transform: translateY(0px);
-    }
-    20%{
-        transform: translateY(-100px);
-    }
-    40%{
-        transform: translateY(-80px);
-    }
-
-    60%{
-        transform: translateY(-40px);
-    }
-    80%{
-        transform: translateY(-20px);
-    }
+    0%{transform: translateX(-100%) }
+    100%{transform: translateX(0) }
 }
 /*fin seccion 1*/
 
