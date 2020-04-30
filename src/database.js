@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// mongodb+srv://<username>:<password>@joven-j4sp6.mongodb.net/test?retryWrites=true&w=majority
+
 // mongoose.connect('mongodb://localhost/ChatLucho', {
 //     useNewUrlParser: true
 // })

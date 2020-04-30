@@ -105,10 +105,20 @@
             <!-- CARD HEADER-->
             <div class="card-header bg-dark text-white">
               <h4>Chateemos</h4>
+
             </div>
 
             <!-- CARD BODY-->
-            <div id="chat" class="card-body"></div>
+            <div  class="card-body">
+              <div  class="row">
+                <div id="chat" class="col-md-12"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p id="typing" class="float-right"></p>
+                </div>
+              </div>
+            </div>
 
             <!-- CARD FOOTER -->
             <form id="message-form" class="card-footer">
@@ -129,12 +139,22 @@
             <div class="card-header bg-dark text-white">
               <h4 id="cabezerapriv">Chateemos</h4>
             </div>
-            <div id="chatPri" class="card-body"></div>
+            <div  class="card-body">
+              <div class="row">
+                <div id="chatPri" class="col-md-12"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p id="typingpri"></p>
+                </div>
+              </div>
+            </div>
+
             <form id="messagePri-form" class="card-footer">
               <div class="input-group">
                 <input type="text" id="messagePri" class="form-control" />
                 <div class="input-group-append">
-                  <button class="btn active" style="color: white">
+                  <button  class="btn active" style="color: white">
                     <i class="fas fa-location-arrow"></i> Enviar
                   </button>
                 </div>

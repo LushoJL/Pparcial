@@ -14,10 +14,24 @@ $(function () {
     const $nickForm = $('#nickForm');// el formulario <from></form>
     const $nickError = $('#nickError');//texto para el error <p></p>
     const $nickname = $('#nickname'); //caja de texto para ingresar el nombr de ususario<input></input>
+    const $typing = $('#typing');
     let $users="";
     // obtener los nombres de usuarios del dom
 
-    //obtener usuario seleccionado
+    //evento de input texto
+    $("input#message").on("keyup", function () {
+        if ($(this).val()!=""){
+            socket.emit('escribiendo',1);
+
+        }else{
+            socket.emit('escribiendo',0);
+        }
+    });
+    socket.on("typing", data=>{
+        $typing.html(`<span class="badge badge-pill badge-secondary">${data.text}</span>`);
+    })
+
+
 
 
 
@@ -52,6 +66,7 @@ $(function () {
       });
 
       //vacia el input
+         $typing.html(``);
       $messageBox.val('');
     });
 
@@ -139,6 +154,22 @@ $(function () {
     const $messageFormp = $('#messagePri-form');//formulario
     const $messageBoxp = $('#messagePri'); //caja de texto
     const $chatp = $('#chatPri'); //el contenedor del form
+    const $typingp = $('#typingpri');
+
+
+    $("input#messagePri").on("keyup", function () {
+        if ($(this).val()!=""){
+            socket.emit('escribiendop',$users,1);
+
+        }else{
+            socket.emit('escribiendop',$users,0);
+        }
+    });
+    socket.on("typingp", data=>{
+        if (data.nick!=$users) $typingp.html(`<span class="badge badge-pill badge-secondary">${data.nick}${data.text}</span>`);
+    })
+
+
 
     // eventos
     $messageFormp.submit( a => {
@@ -150,6 +181,7 @@ $(function () {
         });
 
         //vacia el input
+        $typingp.html(``);
         $messageBoxp.val('');
     });
 

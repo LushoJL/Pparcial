@@ -7,6 +7,33 @@ module.exports = io => {
 
   io.on('connection', async socket => {
 
+    //escribiendo
+    socket.on("escribiendo", val=>{
+      if (val==1){
+        io.sockets.emit('typing', {
+          text:"Alguien esta escribiendo",
+        });
+      }else {
+        io.sockets.emit('typing', {
+          text:"",
+        });
+      }
+    });
+
+    socket.on("escribiendop",(nick, val)=>{
+      if (val==1){
+        io.sockets.emit('typingp', {
+          nick:nick,
+          text:" esta escribiendo",
+        });
+      }else {
+        io.sockets.emit('typingp', {
+          nick:"",
+          text:"",
+        });
+      }
+    });
+
     let messages = await Chat.find({nickres:"grupo"}).limit(8).sort('-created'); //buscar de la base de datos los mensajes
 
     socket.emit('load old msgs', messages);//carga los mensajes de la base de datos
