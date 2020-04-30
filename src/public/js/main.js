@@ -30,9 +30,7 @@ $(function () {
           $('#nickWrap').hide();
           $('#contentWrap').show();
           $('#message').focus();
-           $usuario.html(`
-              ${data}
-          `);
+           $usuario.html(`${data}`);
            $users = data;
         } else {
           $nickError.html(`
@@ -66,7 +64,12 @@ $(function () {
     socket.on('usernames', data => {
         $(" tr ").remove();
       for(let i = 0; i < data.length; i++) {
-          $("table#usernames").append('<tr><td><a id="ver"><i class="fas fa-user"></i>'+data[i]+'</a></td></tr>')
+          if (data[i]==$users){
+              $("table#usernames").append('<tr class="bg-danger"><td><a id="ver"><i class="fas fa-user"></i>'+data[i]+'</a></td></tr>')
+          }else{
+              $("table#usernames").append('<tr><td><a id="ver"><i class="fas fa-user"></i>'+data[i]+'</a></td></tr>')
+
+          }
       }
     });
 

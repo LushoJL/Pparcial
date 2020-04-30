@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
 
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chat Javascript FullStack</title>
-  <!-- BOOTSWATCH COSMO THEME CDN -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <!-- FONT AWESOME -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
-    integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-    crossorigin="anonymous"></script>
-  <!-- MAIN CSS -->
-  <link rel="stylesheet" href="../../css/main.css" />
+          integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/Style.css">
   <link rel="stylesheet" href="lista/css/estilos.css">
+
   <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
 </head>
-
 <body>
 
 <header class="sticky-top" style="margin-bottom: 0">
@@ -24,7 +25,7 @@
     <div class="container">
 
       <nav class="navbar navbar-expand-md navbar-dark">
-        <a class="navbar-brand logo"  href="#">
+        <a class="navbar-brand logo" href="#">
           <img src="imagen/logol.png" width="80" class="d-inline-block align-top" alt="">
           Milenium.com
         </a>
@@ -41,6 +42,7 @@
             <div class="bordR"><a class="nav-item nav-link " href="libro.html">Libro</a></div>
             <div class="bordR"><a class="nav-item nav-link " href="listar.html">Notas</a></div>
             <div class="bordR"><a class="nav-item nav-link active" href="chat.html">Chat</a></div>
+
           </div>
         </div>
       </nav>
@@ -49,10 +51,12 @@
 
 </header>
 
+
+
   <!-- NAVBAR -->
-  <nav class="navbar navbar-dark bg-warning">
+  <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand mx-auto" href="/">
-      <p id="tituloNavbar">Javascript FullStack Chat</p>
+      <p id="tituloNavbar">Chatea con Nosotros</p>
     </a>
   </nav>
 
@@ -69,7 +73,7 @@
             <div class="card-body">
               <form id="nickForm">
                 <input id="nickname" type="text" class="form-control" autofocus />
-                <input type="submit" class="btn btn-warning btn-block mt-2" />
+                <input type="submit" class="btn active btn-block mt-2" style="color: white"/>
               </form>
             </div>
           </div>
@@ -111,7 +115,7 @@
               <div class="input-group">
                 <input type="text" id="message" class="form-control" />
                 <div class="input-group-append">
-                  <button class="btn btn-warning">
+                  <button class="btn active " style="color: white">
                     <i class="fas fa-location-arrow"></i> Enviar
                   </button>
                 </div>
@@ -130,7 +134,7 @@
               <div class="input-group">
                 <input type="text" id="messagePri" class="form-control" />
                 <div class="input-group-append">
-                  <button class="btn btn-warning">
+                  <button class="btn active" style="color: white">
                     <i class="fas fa-location-arrow"></i> Enviar
                   </button>
                 </div>
@@ -145,6 +149,7 @@
 
   </div>
 
+
 <footer>
   <div class="card text-center footer">
     <div class="card-footer text-muted ">
@@ -152,14 +157,12 @@
     </div>
   </div>
 </footer>
-
-  <!-- SCRIPTS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://livejs.com/live.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/main.js"></script>
 
 </body>
-
 </html>
