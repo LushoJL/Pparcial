@@ -297,13 +297,51 @@ class Scene_uno extends Phaser.Scene {
         this.suma = this.add.text(160, 150, '0', {
             font: '70px Arial', fill: '#ffffff'
         });
+
+
+        this.finish= this.physics.add.image(400, -300, "finish");
+        this.textFin= this.add.text(200, -300,
+            'has perdido con \n385'
+            ,
+            {
+                font: '60px Arial', fill: '#ffffff'
+            });
+
+        this.tweenfinish=this.tweens.add({
+            targets:this.finish,
+            duration:1000,
+            y:300,
+            ease:'Power1',
+
+            onStart:()=>{
+                this.finish.setDepth(1);
+                this.textFin.setDepth(1);
+                if (this.puntost<=this.puntoRival){
+                    this.textFin.setText([
+                        'Has perdido con \n'+this.puntos
+                    ]);
+                }else{
+                    this.textFin.setText([
+                        'Has ganado con \n'+this.puntos
+                    ]);
+                }
+
+            },
+            onComplete:()=>{
+
+            }
+
+        }).pause();
+
     }
 
     numeroRandom(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
+    tweensfinals=true;
     update(time, delta) {
-        console.log(this.cargado+" "+this.esperandoOtroJugador + " "+ this.inicio)
+
+        this.textFin.y=this.finish.y-80;
         this.puntajerival.setText([
             this.puntoRival
         ]);
@@ -317,9 +355,13 @@ class Scene_uno extends Phaser.Scene {
 
        if (this.esperandoOtroJugador){
            this.timerFin=(this.timer.getElapsed()/1000).toFixed();
-           this.tiempo.setText([
-               30-this.timerFin
-           ]);
+
+           if ((30-this.timerFin<=30)>=0){
+               this.tiempo.setText([
+                   30-this.timerFin
+               ]);
+           }
+
 
 
            if ( this.timerFin<=30){
@@ -342,10 +384,17 @@ class Scene_uno extends Phaser.Scene {
                }
 
            }else{
+                    if (this.timerFin>=40){
 
+                        this.scene.remove("Scene_uno");
+                        this.scene.start("Pruebas");
+                    }
+                if (this.tweensfinals){
+                    this.tweenfinish.play();
+                    this.tweensfinals=false;
 
-               this.scene.remove("Scene_uno");
-               this.scene.start("Pruebas")
+                }
+
            }
        }
 
