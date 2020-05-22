@@ -3,75 +3,79 @@ import Cuerpo from "../gameObjects/cuerpo.js";
 // socket.io client side connection
 
 
-let x = 185.6, y = 300;
 
-//goma y lapiz
-let grupoGoma, goma, lapiz;
+class Scene_uno extends Phaser.Scene {
 
-//cuerpo
-let caras, cara1, cara2, cara3, cara4, cara5;
-let cuerpo0, cuerpo1, cuerpo2, cuerpo3, cuerpo4, cuerpo5;
+     x = 185.6;
+     y = 300;
 
-//tweens de goma y cuerpo
-let tweengoma1, tweengoma2, tweengoma3, tweengoma4, tweengomaD1, tweengomaD2, tweengomaU1, tweengomaU2;
-let tweenlapiz, tweenlapizU, tweenlapizdown;
-
-//tweens de fondo
-let tweenfondo;
 
 //velocidad
-let velx = 800, vely = 0, velmax = velx, velymax = 2800;
-let dirx = velx;
-let velcu0y = 0, velcu1y = 0, velcu2y = 0, velcu3y = 0, velcu4y = 0, velcu5y = 0;
+     velx = 800;
+    vely = 0;
+    velmax = this.velx;
+    velymax = 2800;
+    dirx = this.velx;
+     velcu0y = 0;
+     velcu1y = 0;
+    velcu2y = 0;
+    velcu3y = 0;
+    velcu4y = 0;
+    velcu5y = 0;
 
 //contador para cambiar cara
-let contador = 0;
+     contador = 0;
 
 
 //si la cara colisiono con el lapiz
-let collisioncara = false;
+     collisioncara = false;
 
-//numero aletorio para lapiz
-let aleatorio, contadorlapiz = 0;
-let gomaVieja;
+//numero aorio para lapiz
+     contadorlapiz = 0;
+
 
 //puntos
-let puntos = 0, contadorcara = 0, contadorcaraAnterior = 0;
+     puntos = 0;
+     contadorcara = 0;
+     contadorcaraAnterior = 0;
 
 //texto
-let Mipuntaje, tiempo, suma, mostrartext=false;
+     mostrartext=false;
 //tiempo
-let socket;//variable socket
-let timer,timerFin;//tiempo
+     socket;//variable socket
+     timer;
+     timerFin;//tiempo
 //finnnnnn
-let fin=false;
+     fin=false;
 
 //iniciar
-let inicio=false;
-let esperandoOtroJugador=false;
+     inicio=false;
+     esperandoOtroJugador=false;
 //nombre rival
-let usuario, rival,puntajerival,nombrerival;
+     usuario; rival;puntajerival;nombrerival;
 //cargado
-let cargado=true;
-let puntoRival=0;
-class Scene_uno extends Phaser.Scene {
+     cargado=true;
+     puntoRival=0;
+
+
+
     constructor(usuRival,usuAct) {
         super({key: "Scene_uno"});
-        rival=usuRival;
-        usuario=usuAct;
+        this.rival=usuRival;
+        this.usuario=usuAct;
     }
 
     create() {
 
 
-        socket = io.connect();
-        socket.on('esperando juegador',()=>{
-            esperandoOtroJugador=true;
-            timer = this.time.addEvent({ delay: 40000 });
+        this.socket = io.connect();
+        this.socket.on('esperando juegador',()=>{
+            this.esperandoOtroJugador=true;
+            this.timer = this.time.addEvent({ delay: 40000 });
         });
-        socket.on('punto del otro equipo',(data)=>{
-            if (data.rival==rival){
-                puntoRival=data.puntos;
+        this.socket.on('punto del otro equipo',(data)=>{
+            if (data.rival==this.rival){
+                this.puntoRival=data.puntos;
             }
         })
 
@@ -80,22 +84,22 @@ class Scene_uno extends Phaser.Scene {
         this.add.image(400, 300, "agua");
 
         this.creandocuerpo();
-        this.personaje = this.add.image(cara1.x + 14, cara1.y + 155, "personaje").setOrigin(0, 0);
+        this.personaje = this.add.image(this.cara1.x + 14, this.cara1.y + 155, "personaje").setOrigin(0, 0);
 
         //creando goma y lapiz
-        grupoGoma = this.physics.add.group();
-        lapiz = this.physics.add.image(50, -550, 'lapiz');
-        lapiz.setImmovable(true);
-        lapiz.setScale(0.4, 0.4);
+        this.grupoGoma = this.physics.add.group();
+        this.lapiz = this.physics.add.image(50, -550, 'lapiz');
+        this.lapiz.setImmovable(true);
+        this.lapiz.setScale(0.4, 0.4);
 
         //grupo 1
-        goma = grupoGoma.create(160, 100, 'goma');
-        goma = grupoGoma.create(1113, 100, 'goma');
+        this.goma = this.grupoGoma.create(160, 100, 'goma');
+        this.goma = this.grupoGoma.create(1113, 100, 'goma');
 
         //grupo 2
-        goma = grupoGoma.create(-313, -500, 'goma');
-        goma = grupoGoma.create(640, -500, 'goma');
-        grupoGoma.children.iterate((x) => {
+        this.goma = this.grupoGoma.create(-313, -500, 'goma');
+        this.goma = this.grupoGoma.create(640, -500, 'goma');
+        this.grupoGoma.children.iterate((x) => {
             x.body.setAllowGravity(false);
             x.body.immovable = true;
 
@@ -104,165 +108,167 @@ class Scene_uno extends Phaser.Scene {
         this.add.image(800, 600, "cblue").setOrigin(1, 1);
         this.add.image(0, 600, "cred").setOrigin(0, 1);
 
-        tweengoma1 = this.tweens.add({
-            targets: grupoGoma.children.entries[0],
+        this.tweengoma1 = this.tweens.add({
+            targets: this.grupoGoma.children.entries[0],
             duration: 1000,
             repeat: -1,
             x: -313,
             yoyo: true
         });
-        tweengoma2 = this.tweens.add({
-            targets: grupoGoma.children.entries[1],
+        this.tweengoma2 = this.tweens.add({
+            targets: this.grupoGoma.children.entries[1],
             duration: 1000,
             repeat: -1,
             x: 640,
             yoyo: true
         });
         // grupo 2 de goma
-        tweengoma3 = this.tweens.add({
-            targets: grupoGoma.children.entries[2],
+        this.tweengoma3 = this.tweens.add({
+            targets: this.grupoGoma.children.entries[2],
             duration: 1000,
             repeat: -1,
             x: 160,
             yoyo: true
         });
-        tweengoma4 = this.tweens.add({
-            targets: grupoGoma.children.entries[3],
+        this.tweengoma4 = this.tweens.add({
+            targets: this.grupoGoma.children.entries[3],
             duration: 1000,
             repeat: -1,
             x: 1113,
             yoyo: true
         });
         //lapiz
-        tweenlapiz = this.tweens.add({
-            targets: lapiz,
+        this.tweenlapiz = this.tweens.add({
+            targets: this.lapiz,
             duration: 1000,
             repeat: -1,
             x: 750,
             yoyo: true
         });
-        tweenlapizU = this.tweens.add({
-            targets: lapiz,
+        this.tweenlapizU = this.tweens.add({
+            targets: this.lapiz,
             duration: 300,
             y: 100,
             onComplete: () => {
-                if (!tweenlapiz.isPlaying()) tweenlapiz.resume();
+                if (!this.tweenlapiz.isPlaying()) this.tweenlapiz.resume();
             }
 
         }).pause();
-        tweenlapizdown = this.tweens.add({
-            targets: lapiz,
+        this.tweenlapizdown = this.tweens.add({
+            targets: this.lapiz,
             duration: 300,
             scaleX: 0,
             scaleY: 0,
             onComplete: () => {
 
-                lapiz.y = -550;
-                lapiz.setScale(0.4, 0.4);
-                if (gomaVieja === 2) {
-                    tweengomaU2.play();
+                this.lapiz.y = -550;
+                this.lapiz.setScale(0.4, 0.4);
+                if (this.gomaVieja === 2) {
+                    this.tweengomaU2.play();
                 } else {
-                    tweengomaU1.play();
+                    this.tweengomaU1.play();
                 }
             }
         }).pause()
 
         //tweens de y=-500 a y = 200
-        tweengomaU1 = this.tweens.add({
-            targets: [grupoGoma.children.entries[0], grupoGoma.children.entries[1]],
+        this.tweengomaU1 = this.tweens.add({
+            targets: [this.grupoGoma.children.entries[0], this.grupoGoma.children.entries[1]],
             duration: 300,
             y: 100,
             onComplete: () => {
-                tweengoma1.resume();
-                tweengoma2.resume();
+                this.tweengoma1.resume();
+                this.tweengoma2.resume();
             },
 
         }).pause();//grupo 1
-        tweengomaU2 = this.tweens.add({
-            targets: [grupoGoma.children.entries[2], grupoGoma.children.entries[3]],
+        this.tweengomaU2 = this.tweens.add({
+            targets: [this.grupoGoma.children.entries[2], this.grupoGoma.children.entries[3]],
             duration: 300,
             y: 100,
             onComplete: () => {
-                tweengoma3.resume();
-                tweengoma4.resume();
+                this.tweengoma3.resume();
+                this.tweengoma4.resume();
             }
         }).pause();//grupo 2
 
         //tweens de posicion y =200 a y=650
-        tweengomaD1 = this.tweens.add({
-            targets: [grupoGoma.children.entries[0], grupoGoma.children.entries[1]],
+        this.tweengomaD1 = this.tweens.add({
+            targets: [this.grupoGoma.children.entries[0], this.grupoGoma.children.entries[1]],
             duration: 200,
             y: 650,
             onComplete: () => {
 
-                grupoGoma.children.entries[0].y = -500;
-                grupoGoma.children.entries[1].y = -500;
-                if (aleatorio === contadorlapiz) {
-                    gomaVieja = 2;
-                    tweenlapizU.play();
+                this.grupoGoma.children.entries[0].y = -500;
+                this.grupoGoma.children.entries[1].y = -500;
+                if (this.aleatorio === this.contadorlapiz) {
+                    this.gomaVieja = 2;
+                    this.tweenlapizU.play();
                 } else {
-                    tweengomaU2.play();
+                    this.tweengomaU2.play();
                 }
 
             }
         }).pause();
-        tweengomaD2 = this.tweens.add({
-            targets: [grupoGoma.children.entries[2], grupoGoma.children.entries[3]],
+        this.tweengomaD2 = this.tweens.add({
+            targets: [this.grupoGoma.children.entries[2], this.grupoGoma.children.entries[3]],
             duration: 300,
             y: 650,
             onComplete: () => {
 
-                grupoGoma.children.entries[2].y = -500;
-                grupoGoma.children.entries[3].y = -500;
-                if (aleatorio === contadorlapiz) {
-                    gomaVieja = 1;
-                    tweenlapizU.play();
+                this.grupoGoma.children.entries[2].y = -500;
+                this.grupoGoma.children.entries[3].y = -500;
+                if (this.aleatorio === this.contadorlapiz) {
+                    this.gomaVieja = 1;
+                    this.tweenlapizU.play();
 
                 } else {
-                    tweengomaU1.play();
+                    this.tweengomaU1.play();
                 }
             }
         }).pause();
 
         //tweens para fondo
-        tweenfondo=this.tweens.add({
+        this.tweenfondo=this.tweens.add({
             targets:this.fondo,
             duration:40000,
             y:800,
              })
 
         //numero aleatorio para lapiz
-        aleatorio = this.numeroRandom(2, 5);
+        this.aleatorio = this.numeroRandom(2, 5);
 
         //fisicas
         this.fisicas();
 
         //evento tecla espacio
         this.input.keyboard.on("keydown_SPACE", () => {
-        if (esperandoOtroJugador){
+        if (this.esperandoOtroJugador){
 
-            if (!inicio){
-                inicio=true;
+            if (!this.inicio){
+                this.inicio=true;
             }
-            if (!fin){
-                if (tweengoma1.isPlaying()) {
-                    tweengoma1.pause();
-                    tweengoma2.pause();
-                } else if (tweengoma3.isPlaying()) {
-                    tweengoma3.pause();
-                    tweengoma4.pause();
-                } else if (tweenlapiz.isPlaying()) {
-                    tweenlapiz.pause();
+            if (!this.fin){
+                if (this.tweengoma1.isPlaying()) {
+                    this.tweengoma1.pause();
+                    this.tweengoma2.pause();
+                } else if (this.tweengoma3.isPlaying()) {
+                    this.tweengoma3.pause();
+                    this.tweengoma4.pause();
+                } else if (this.tweenlapiz.isPlaying()) {
+                    this.tweenlapiz.pause();
                 }
-                velx = 0;
-                vely = -velymax;
-                velcu0y = -velymax;
-                velcu1y = -velymax;
-                velcu2y = -velymax;
-                velcu3y = -velymax;
-                velcu4y = -velymax;
-                velcu5y = -velymax;
+                this.velx = 0;
+                this.vely = -this.velymax;
+                this.velcu0y = -this.velymax;
+                this.velcu1y = -this.velymax;
+                this.velcu2y = -this.velymax;
+                this.velcu3y = -this.velymax;
+                this.velcu4y = -this.velymax;
+                this.velcu5y = -this.velymax;
             }
+        }else{
+            console.log("esperando otros jugador");
         }
 
                 });
@@ -273,22 +279,22 @@ class Scene_uno extends Phaser.Scene {
         graphics.strokeCircle(815, -15, 70);
 
         // textos
-        Mipuntaje = this.add.text(50, 540, '0', {
+        this.Mipuntaje = this.add.text(50, 540, '0', {
             font: '30px Arial', fill: '#030303'
         });
-        puntajerival = this.add.text(710, 540, '0', {
+        this.puntajerival = this.add.text(710, 540, '0', {
             font: '30px Arial', fill: '#030303'
         });
-        this.add.text(710, 510, rival, {
+        this.add.text(710, 510, this.rival, {
             font: '30px Arial', fill: '#030303'
         });
         this.add.text(50, 510, 'tú', {
             font: '30px Arial', fill: '#030303'
         });
-        tiempo = this.add.text(720, 5, '0', {
+        this.tiempo = this.add.text(720, 5, '0', {
             font: '70px Arial', fill: '#ffffff'
         });
-        suma = this.add.text(160, 150, '0', {
+        this.suma = this.add.text(160, 150, '0', {
             font: '70px Arial', fill: '#ffffff'
         });
     }
@@ -297,39 +303,39 @@ class Scene_uno extends Phaser.Scene {
         return Math.floor(Math.random() * (max - min)) + min;
     }
     update(time, delta) {
-
-        puntajerival.setText([
-            puntoRival
+        console.log(this.cargado+" "+this.esperandoOtroJugador + " "+ this.inicio)
+        this.puntajerival.setText([
+            this.puntoRival
         ]);
-        console.log("rival "+ rival + " punto "+puntoRival);
-        this.personaje.x = cara1.x - 100;
-        this.personaje.y = cara1.y + 155;
-        if (cargado){
-            socket.emit('carga completa de juego');
-            cargado=false;
+
+        this.personaje.x = this.cara1.x - 100;
+        this.personaje.y = this.cara1.y + 155;
+        if (this.cargado){
+            this.socket.emit('carga completa de juego');
+            this.cargado=false;
         }
 
-       if (esperandoOtroJugador){
-           timerFin=(timer.getElapsed()/1000).toFixed();
-           tiempo.setText([
-               30-timerFin
+       if (this.esperandoOtroJugador){
+           this.timerFin=(this.timer.getElapsed()/1000).toFixed();
+           this.tiempo.setText([
+               30-this.timerFin
            ]);
-           console.log(timerFin)
 
-           if ( timerFin<=30){
+
+           if ( this.timerFin<=30){
                console.log("verdadero")
-               if (inicio){
+               if (this.inicio){
                    this.movex();
                    this.cambioCara();
-                   if (tweenlapizU.isPlaying()) {
-                       contadorlapiz = 0;
+                   if (this.tweenlapizU.isPlaying()) {
+                       this.contadorlapiz = 0;
                    }
-                   Mipuntaje.setText([
-                       puntos
+                   this.Mipuntaje.setText([
+                       this.puntos
                    ]);
-                   socket.emit('puntos rival',{
-                       puntos:puntos,
-                       rival:usuario,
+                   this.socket.emit('puntos rival',{
+                       puntos:this.puntos,
+                       rival:this.usuario,
                    })
                    this.puntaje();
 
@@ -337,10 +343,7 @@ class Scene_uno extends Phaser.Scene {
 
            }else{
 
-               x = 185.6, y = 300;
-               velx = 800, vely = 0, velmax = velx, velymax = 2800, dirx = velx;
-               velcu0y = 0, velcu1y = 0, velcu2y = 0, velcu3y = 0, velcu4y = 0, velcu5y = 0, contador = 0,collisioncara = false,
-                   puntos = 0, contadorcara = 0, contadorcaraAnterior = 0, mostrartext=false, timer="", fin=false, inicio=false;
+
                this.scene.remove("Scene_uno");
                this.scene.start("Pruebas")
            }
@@ -357,26 +360,26 @@ class Scene_uno extends Phaser.Scene {
     puntaje() {
         this.vereficaCuerpo();
 
-        if (lapiz.y < 0) {
-            if (cara1.y < 10 && this.ifpuntos) {
-                if ((contadorcaraAnterior <= contadorcara) && contadorcaraAnterior!==0) {
+        if (this.lapiz.y < 0) {
+            if (this.cara1.y < 10 && this.ifpuntos) {
+                if ((this.contadorcaraAnterior <= this.contadorcara) && this.contadorcaraAnterior!==0) {
 
-                    puntos += contadorcara * 2;
-                    suma.setText([
-                        'PERFECT!! +'+contadorcara+' x2',
+                    this.puntos += this.contadorcara * 2;
+                    this.suma.setText([
+                        'PERFECT!! +'+this.contadorcara+' x2',
                     ]);
                     this.ifpuntos = false;
                 } else {
-                    suma.setText([
-                        'MUY BIEN +'+contadorcara,
+                    this.suma.setText([
+                        'MUY BIEN +'+this.contadorcara,
                     ]);
-                    puntos += contadorcara;
+                    this.puntos += this.contadorcara;
                     this.ifpuntos = false;
                 }
-                contadorcaraAnterior = contadorcara;
+                this.contadorcaraAnterior = this.contadorcara;
 
 
-            } else if (cara1.y > 10) {
+            } else if (this.cara1.y > 10) {
                 this.ifpuntos = true;
             }
 
@@ -389,101 +392,101 @@ class Scene_uno extends Phaser.Scene {
     //vereficar cuantas caras hay
     vereficaCuerpo() {
         for (var i = 0; i < 1; i++) {
-            contador = 0;
-            contadorcara = 2;
-            if (cuerpo0.y > 600) contador++;//1 1
-            else contadorcara += 2;
-            if (cuerpo1.y > 600) contador++;//2 4
-            else contadorcara += 2;
-            if (cuerpo2.y > 600) contador++;//3 4
-            else contadorcara += 2;
-            if (cuerpo3.y > 600) contador++;//4 6
-            else contadorcara += 2;
-            if (cuerpo4.y > 600) contador++;//5 8
-            else contadorcara += 2;
-            if (cuerpo5.y > 600) contador++;//6 10
-            else contadorcara += 2;
+            this.contador = 0;
+            this.contadorcara = 2;
+            if (this.cuerpo0.y > 600) this.contador++;//1 1
+            else this.contadorcara += 2;
+            if (this.cuerpo1.y > 600) this.contador++;//2 4
+            else this.contadorcara += 2;
+            if (this.cuerpo2.y > 600) this.contador++;//3 4
+            else this.contadorcara += 2;
+            if (this.cuerpo3.y > 600) this.contador++;//4 6
+            else this.contadorcara += 2;
+            if (this.cuerpo4.y > 600) this.contador++;//5 8
+            else this.contadorcara += 2;
+            if (this.cuerpo5.y > 600) this.contador++;//6 10
+            else this.contadorcara += 2;
         }
     }
 
     //cambio de cara
     cambioCara() {
         this.vereficaCuerpo();
-        if (contador == 0) this.zIndexcara(1, 0, 0, 0, 0);
-        else if (contador <= 2) this.zIndexcara(0, 1, 0, 0, 0);
-        else if (contador <= 4) this.zIndexcara(0, 0, 1, 0, 0);
-        else if (contador === 5) this.zIndexcara(0, 0, 0, 1, 0);
+        if (this.contador == 0) this.zIndexcara(1, 0, 0, 0, 0);
+        else if (this.contador <= 2) this.zIndexcara(0, 1, 0, 0, 0);
+        else if (this.contador <= 4) this.zIndexcara(0, 0, 1, 0, 0);
+        else if (this.contador === 5) this.zIndexcara(0, 0, 0, 1, 0);
         else this.zIndexcara(0, 0, 0, 0, 1);
     }
 
     //funcion de cambiar cara
     zIndexcara(a, b, c, d, e) {
-        cara1.setDepth(a);
-        cara2.setDepth(b);
-        cara3.setDepth(c);
-        cara4.setDepth(d);
-        cara5.setDepth(e);
+        this.cara1.setDepth(a);
+        this.cara2.setDepth(b);
+        this.cara3.setDepth(c);
+        this.cara4.setDepth(d);
+        this.cara5.setDepth(e);
     }
 
     movex() {
 
-        cara1.body.setVelocity(velx, vely);
-        cara2.body.setVelocity(velx, vely);
-        cara3.body.setVelocity(velx, vely);
-        cara4.body.setVelocity(velx, vely);
-        cara5.body.setVelocity(velx, vely);
-        cuerpo0.body.setVelocity(velx, velcu0y);
-        cuerpo1.body.setVelocity(velx, velcu1y);
-        cuerpo2.body.setVelocity(velx, velcu2y);
-        cuerpo3.body.setVelocity(velx, velcu3y);
-        cuerpo4.body.setVelocity(velx, velcu4y);
-        cuerpo5.body.setVelocity(velx, velcu5y);
+        this.cara1.body.setVelocity(this.velx, this.vely);
+        this.cara2.body.setVelocity(this.velx, this.vely);
+        this.cara3.body.setVelocity(this.velx, this.vely);
+        this.cara4.body.setVelocity(this.velx, this.vely);
+        this.cara5.body.setVelocity(this.velx, this.vely);
+        this.cuerpo0.body.setVelocity(this.velx, this.velcu0y);
+        this.cuerpo1.body.setVelocity(this.velx, this.velcu1y);
+        this.cuerpo2.body.setVelocity(this.velx, this.velcu2y);
+        this.cuerpo3.body.setVelocity(this.velx, this.velcu3y);
+        this.cuerpo4.body.setVelocity(this.velx, this.velcu4y);
+        this.cuerpo5.body.setVelocity(this.velx, this.velcu5y);
         //cuando llega al piso
-        if (cara1.y > 300) {
+        if (this.cara1.y > 300) {
             this.acomodarcuerpo();
             //activa los tweent si la cara collisiono con la goma
-            if (collisioncara && grupoGoma.children.entries[0].y > 0) {
-                tweengoma1.resume();
-                tweengoma2.resume();
-                collisioncara = false;
-            } else if (collisioncara && grupoGoma.children.entries[3].y > 0) {
-                tweengoma3.resume();
-                tweengoma4.resume();
-                collisioncara = false;
+            if (this.collisioncara && this.grupoGoma.children.entries[0].y > 0) {
+                this.tweengoma1.resume();
+                this.tweengoma2.resume();
+                this.collisioncara = false;
+            } else if (this.collisioncara && this.grupoGoma.children.entries[3].y > 0) {
+                this.tweengoma3.resume();
+                this.tweengoma4.resume();
+                this.collisioncara = false;
             }
         }
         //cambia el sentido de rebote de bob esponja en X y Y
-        if (cara1.x >= 700 && vely === 0) {//verefica si bob llego a al maximo del canvas y la velocidad esta en x
-            velx = -velmax;
-            dirx = velx;
-        } else if (cara1.x <= 185 && vely === 0) {// verifica si bob llego al inicio de canvas y la velocidad esta en x
-            velx = velmax;
-            dirx = velx;
-        } else if (cara1.y <= 0 && velx === 0) { //verifica si bob esta en el rango Y del canvas
-            vely = velymax;
-            velcu0y = velymax;
-            velcu1y = velymax;
-            velcu2y = velymax;
-            velcu3y = velymax;
-            velcu4y = velymax;
-            velcu5y = velymax;
+        if (this.cara1.x >= 700 && this.vely === 0) {//verefica si bob llego a al maximo del canvas y la velocidad esta en x
+            this.velx = -this.velmax;
+            this.dirx = this.velx;
+        } else if (this.cara1.x <= 185 && this.vely === 0) {// verifica si bob llego al inicio de canvas y la velocidad esta en x
+            this.velx = this.velmax;
+            this.dirx = this.velx;
+        } else if (this.cara1.y <= 0 && this.velx === 0) { //verifica si bob esta en el rango Y del canvas
+            this.vely = this.velymax;
+            this.velcu0y = this.velymax;
+            this.velcu1y = this.velymax;
+            this.velcu2y = this.velymax;
+            this.velcu3y = this.velymax;
+            this.velcu4y = this.velymax;
+           this. velcu5y = this.velymax;
 
             //esto manda hacia abajo si la cara de bobo colisiona con el borde de arriba
-            if (!collisioncara && !tweengomaD1.isPlaying() && grupoGoma.children.entries[0].y > 0) {//esto verefica si el esta el grupo 1 de gomas para que se vaya
-                tweengomaD1.play();//baja hacia abajo
-                contadorlapiz++;//para que aparezca el lapiz
-                mostrartext=true;//para que muestre el numero que se esta sumando
+            if (!this.collisioncara && !this.tweengomaD1.isPlaying() && this.grupoGoma.children.entries[0].y > 0) {//esto verefica si el esta el grupo 1 de gomas para que se vaya
+                this.tweengomaD1.play();//baja hacia abajo
+                this.contadorlapiz++;//para que aparezca el lapiz
+                this.mostrartext=true;//para que muestre el numero que se esta sumando
 
-            } else if (!collisioncara && !tweengomaD2.isPlaying() && grupoGoma.children.entries[3].y > 0) {//esto verefica si el esta el grupo 2 de gomas para que se vaya
-                tweengomaD2.play();//baja hacia abajo
-                contadorlapiz++; //para que aparezca el lapiz
-                mostrartext=true;//para que muestre el numero que se esta sumando
+            } else if (!this.collisioncara && !this.tweengomaD2.isPlaying() && this.grupoGoma.children.entries[3].y > 0) {//esto verefica si el esta el grupo 2 de gomas para que se vaya
+                this.tweengomaD2.play();//baja hacia abajo
+                this.contadorlapiz++; //para que aparezca el lapiz
+               this.mostrartext=true;//para que muestre el numero que se esta sumando
 
 
-            } else if (!collisioncara && !tweenlapiz.isPlaying() && lapiz.y > 0) {//esto verefica si esta el lapiz para que se vaya
-                tweenlapizdown.play();
-                collisioncara = false; //para que aparezca el lapiz
-                mostrartext=true;//para que muestre el numero que se esta sumando
+            } else if (!this.collisioncara && !this.tweenlapiz.isPlaying() && this.lapiz.y > 0) {//esto verefica si esta el lapiz para que se vaya
+                this.tweenlapizdown.play();
+                this.collisioncara = false; //para que aparezca el lapiz
+               this.mostrartext=true;//para que muestre el numero que se esta sumando
 
             }
 
@@ -493,132 +496,132 @@ class Scene_uno extends Phaser.Scene {
     }
 
     creandocuerpo() {
-        caras = this.add.group();
-        cara5 = new Cuerpo(this, x, y, 'caraCinco');
-        cara4 = new Cuerpo(this, x, y, 'caraCuatro');
-        cara3 = new Cuerpo(this, x, y, 'caraTres');
-        cara2 = new Cuerpo(this, x, y, 'caraDos');
-        cara1 = new Cuerpo(this, x, y, "caraUno");
-        caras = this.add.group();
-        caras.create(cara1);
-        caras.create(cara2);
-        caras.create(cara3);
-        caras.create(cara4);
-        caras.create(cara5);
+        this.caras = this.add.group();
+        this.cara5 = new Cuerpo(this, this.x, this.y, 'caraCinco');
+        this.cara4 = new Cuerpo(this, this.x, this.y, 'caraCuatro');
+        this.cara3 = new Cuerpo(this, this.x, this.y, 'caraTres');
+        this.cara2 = new Cuerpo(this, this.x, this.y, 'caraDos');
+        this.cara1 = new Cuerpo(this, this.x, this.y, "caraUno");
+        this.caras = this.add.group();
+        this.caras.create(this.cara1);
+        this.caras.create(this.cara2);
+        this.caras.create(this.cara3);
+        this.caras.create(this.cara4);
+        this.caras.create(this.cara5);
 
-        cuerpo3 = new Cuerpo(this, cara1.x - 1.8, cara1.y, 'bobtres');
-        cuerpo4 = new Cuerpo(this, cara1.x + 24.4, cara1.y, 'bobcuatro');
-        cuerpo5 = new Cuerpo(this, cara1.x + 50.6, cara1.y, 'bobcinco');
+        this.cuerpo3 = new Cuerpo(this, this.cara1.x - 1.8, this.cara1.y, 'bobtres');
+        this.cuerpo4 = new Cuerpo(this, this.cara1.x + 24.4, this.cara1.y, 'bobcuatro');
+        this.cuerpo5 = new Cuerpo(this, this.cara1.x + 50.6, this.cara1.y, 'bobcinco');
 
-        cuerpo2 = new Cuerpo(this, cara1.x - 106.2, cara1.y, 'bobdos');
-        cuerpo1 = new Cuerpo(this, cara1.x - 131.4, cara1.y, 'bobuno');
-        cuerpo0 = new Cuerpo(this, cara1.x - 157.6, cara1.y, 'bobcero');
+        this.cuerpo2 = new Cuerpo(this, this.cara1.x - 106.2, this.cara1.y, 'bobdos');
+        this.cuerpo1 = new Cuerpo(this, this.cara1.x - 131.4, this.cara1.y, 'bobuno');
+        this.cuerpo0 = new Cuerpo(this, this.cara1.x - 157.6, this.cara1.y, 'bobcero');
 
-        cara1.setOrigin(1, 0);
-        cara2.setOrigin(1, 0);
-        cara3.setOrigin(1, 0);
-        cara4.setOrigin(1, 0);
-        cara5.setOrigin(1, 0);
-        cuerpo0.setOrigin(1, 0);
-        cuerpo1.setOrigin(1, 0);
-        cuerpo2.setOrigin(1, 0);
+        this.cara1.setOrigin(1, 0);
+        this.cara2.setOrigin(1, 0);
+        this.cara3.setOrigin(1, 0);
+        this.cara4.setOrigin(1, 0);
+        this.cara5.setOrigin(1, 0);
+        this.cuerpo0.setOrigin(1, 0);
+        this.cuerpo1.setOrigin(1, 0);
+        this.cuerpo2.setOrigin(1, 0);
 
-        cuerpo3.setOrigin(0, 0);
-        cuerpo4.setOrigin(0, 0);
-        cuerpo5.setOrigin(0, 0);
+        this.cuerpo3.setOrigin(0, 0);
+        this.cuerpo4.setOrigin(0, 0);
+        this.cuerpo5.setOrigin(0, 0);
 
 
     }
 
     acomodarcuerpo() {
         //acomoda las cuerpo
-        if (cuerpo0.y <= 400) cuerpo0.y = 300;
-        else cuerpo0.y = 1500;
-        if (cuerpo1.y <= 400) cuerpo1.y = 300;
-        else cuerpo1.y = 1500;
-        if (cuerpo2.y <= 400) cuerpo2.y = 300;
-        else cuerpo2.y = 1500;
-        if (cuerpo3.y <= 400) cuerpo3.y = 300;
-        else cuerpo3.y = 1500;
-        if (cuerpo4.y <= 400) cuerpo4.y = 300;
-        else cuerpo4.y = 1500;
-        if (cuerpo5.y <= 400) cuerpo5.y = 300;
-        else cuerpo5.y = 1500;
-        cara1.y = 300;
-        cara2.y = 300;
-        cara3.y = 300;
-        cara4.y = 300;
-        cara5.y = 300;
+        if (this.cuerpo0.y <= 400) this.cuerpo0.y = 300;
+        else this.cuerpo0.y = 1500;
+        if (this.cuerpo1.y <= 400) this.cuerpo1.y = 300;
+        else this.cuerpo1.y = 1500;
+        if (this.cuerpo2.y <= 400) this.cuerpo2.y = 300;
+        else this.cuerpo2.y = 1500;
+        if (this.cuerpo3.y <= 400) this.cuerpo3.y = 300;
+        else this.cuerpo3.y = 1500;
+        if (this.cuerpo4.y <= 400) this.cuerpo4.y = 300;
+        else this.cuerpo4.y = 1500;
+        if (this.cuerpo5.y <= 400) this.cuerpo5.y = 300;
+        else this.cuerpo5.y = 1500;
+        this.cara1.y = 300;
+        this.cara2.y = 300;
+        this.cara3.y = 300;
+        this.cara4.y = 300;
+        this.cara5.y = 300;
         //pone la velocidad de y en 0 y de x en direccion anterior
-        vely = 0;
-        velcu0y = 0;
-        velcu1y = 0;
-        velcu2y = 0;
-        velcu3y = 0;
-        velcu4y = 0;
-        velcu5y = 0;
-        velx = dirx;
+        this.vely = 0;
+        this.velcu0y = 0;
+        this.velcu1y = 0;
+        this.velcu2y = 0;
+        this.velcu3y = 0;
+        this.velcu4y = 0;
+        this.velcu5y = 0;
+        this.velx = this.dirx;
     }
 
     fisicas() {
-        this.physics.add.collider(cara1, grupoGoma, this.chocacara, null, this);
-        this.physics.add.collider(cara2, grupoGoma, this.chocacara, null, this);
-        this.physics.add.collider(cara3, grupoGoma, this.chocacara, null, this);
-        this.physics.add.collider(cara4, grupoGoma, this.chocacara, null, this);
-        this.physics.add.collider(cara5, grupoGoma, this.chocacara, null, this);
+        this.physics.add.collider(this.cara1, this.grupoGoma, this.chocacara, null, this);
+        this.physics.add.collider(this.cara2, this.grupoGoma, this.chocacara, null, this);
+        this.physics.add.collider(this.cara3, this.grupoGoma, this.chocacara, null, this);
+        this.physics.add.collider(this.cara4, this.grupoGoma, this.chocacara, null, this);
+        this.physics.add.collider(this.cara5, this.grupoGoma, this.chocacara, null, this);
 
-        this.physics.add.collider(cuerpo0, grupoGoma, this.chocacuerpo0, null, this);
-        this.physics.add.collider(cuerpo1, grupoGoma, this.chocacuerpo1, null, this);
-        this.physics.add.collider(cuerpo2, grupoGoma, this.chocacuerpo2, null, this);
-        this.physics.add.collider(cuerpo3, grupoGoma, this.chocacuerpo3, null, this);
-        this.physics.add.collider(cuerpo4, grupoGoma, this.chocacuerpo4, null, this);
-        this.physics.add.collider(cuerpo5, grupoGoma, this.chocacuerpo5, null, this);
+        this.physics.add.collider(this.cuerpo0, this.grupoGoma, this.chocacuerpo0, null, this);
+        this.physics.add.collider(this.cuerpo1, this.grupoGoma, this.chocacuerpo1, null, this);
+        this.physics.add.collider(this.cuerpo2, this.grupoGoma, this.chocacuerpo2, null, this);
+        this.physics.add.collider(this.cuerpo3, this.grupoGoma, this.chocacuerpo3, null, this);
+        this.physics.add.collider(this.cuerpo4, this.grupoGoma, this.chocacuerpo4, null, this);
+        this.physics.add.collider(this.cuerpo5, this.grupoGoma, this.chocacuerpo5, null, this);
 
-        this.physics.add.collider(cara1, lapiz, this.chocalapiz, null, this);
+        this.physics.add.collider(this.cara1, this.lapiz, this.chocalapiz, null, this);
     }
 
     chocalapiz() {
-        collisioncara = true;
-        lapiz.y = -550;
-        tweenlapiz.resume();
-        cuerpo0.x = cara1.x - 157.6;
-        cuerpo1.x = cara1.x - 131.4;
-        cuerpo2.x = cara1.x - 106.2;
-        cuerpo3.x = cara1.x - 1.8;
-        cuerpo4.x = cara1.x + 24.4;
-        cuerpo5.x = cara1.x + 50.6;
+        this.collisioncara = true;
+        this.lapiz.y = -550;
+        this.tweenlapiz.resume();
+        this.cuerpo0.x = this.cara1.x - 157.6;
+        this.cuerpo1.x = this.cara1.x - 131.4;
+        this.cuerpo2.x = this.cara1.x - 106.2;
+        this.cuerpo3.x = this.cara1.x - 1.8;
+        this.cuerpo4.x = this.cara1.x + 24.4;
+        this.cuerpo5.x = this.cara1.x + 50.6;
 
-        cuerpo0.y = cara1.y
-        cuerpo1.y = cara1.y
-        cuerpo2.y = cara1.y
-        cuerpo3.y = cara1.y
-        cuerpo4.y = cara1.y
-        cuerpo5.y = cara1.y
-        if (gomaVieja === 2) {
-            tweengomaU2.play();
+        this.cuerpo0.y = this.cara1.y
+        this.cuerpo1.y = this.cara1.y
+        this.cuerpo2.y = this.cara1.y
+        this.cuerpo3.y = this.cara1.y
+        this.cuerpo4.y = this.cara1.y
+        this.cuerpo5.y = this.cara1.y
+        if (this.gomaVieja === 2) {
+            this.tweengomaU2.play();
         } else {
-            tweengomaU1.play();
+            this.tweengomaU1.play();
         }
 
     }
 
     chocacara() {
         this.c = true;
-        collisioncara = true;
-        vely = velymax;
-        velcu0y = velymax;
-        velcu1y = velymax;
-        velcu2y = velymax;
-        velcu3y = velymax;
-        velcu4y = velymax;
-        velcu5y = velymax;
+        this.collisioncara = true;
+        this.vely = this.velymax;
+        this.velcu0y = this.velymax;
+        this.velcu1y = this.velymax;
+        this.velcu2y = this.velymax;
+        this.velcu3y = this.velymax;
+        this.velcu4y = this.velymax;
+        this.velcu5y = this.velymax;
 
     }
 
     chocacuerpo0() {
 
         if (!this.c) {
-            velcu0y = 1200;
+            this.velcu0y = 1200;
         }
 
 
@@ -627,7 +630,7 @@ class Scene_uno extends Phaser.Scene {
     chocacuerpo1() {
 
         if (!this.c) {
-            velcu1y = 1200;
+            this.velcu1y = 1200;
         }
 
     }
@@ -636,14 +639,14 @@ class Scene_uno extends Phaser.Scene {
 
 
         if (!this.c) {
-            velcu2y = 1200;
+            this.velcu2y = 1200;
 
         }
     }
 
     chocacuerpo3() {
         if (!this.c) {
-            velcu3y = 1200;
+            this.velcu3y = 1200;
 
         }
 
@@ -652,7 +655,7 @@ class Scene_uno extends Phaser.Scene {
 
     chocacuerpo4() {
         if (!this.c) {
-            velcu4y = 1200;
+            this.velcu4y = 1200;
 
         }
 
@@ -661,7 +664,7 @@ class Scene_uno extends Phaser.Scene {
 
     chocacuerpo5() {
         if (!this.c) {
-            velcu5y = 1200;
+            this.velcu5y = 1200;
 
         }
 
