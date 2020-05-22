@@ -187,7 +187,14 @@ const $aceptarJuego=$('#aceptarJuego')//formulario para aceptar juego
     });
 
     socket.on('juguemos',data=>{
-        $aceptarJuego.append(`<button class="btn active" style="color: white"><i class="fas fa-location-arrow"></i> JUGUEMOS(<b>${data.desafiante}</b> vs ${data.desafiado})</button>`);
+        if (data.desafiante!=$usuarioLogueado){
+            $aceptarJuego.append(`<button class="btn active" style="color: white"><i class="fas fa-location-arrow"></i> JUGUEMOS</button>`);
+
+        }else{
+            $aceptarJuego.append(`<p class=""><i class="fas fa-location-arrow"></i> afiaste</p>`);
+
+
+        }
     })
 
     $aceptarJuego.submit(a=>{
