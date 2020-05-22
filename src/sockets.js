@@ -1,6 +1,8 @@
 const Chat = require('./models/Chat');
 const User = require('./models/User');
 let $usuario="";
+let $usumaq;
+
 module.exports = io => {
 
   let users = {};
@@ -18,6 +20,10 @@ module.exports = io => {
           text:"",
         });
       }
+    });
+
+    socket.on("puntos",  (puntos)=>{
+      io.sockets.emit('puntosdelotrojugador', puntos );
     });
 
     socket.on("escribiendop",(nick, val)=>{
@@ -51,9 +57,12 @@ module.exports = io => {
         console.log(e);
       };
     })
+
+
     //crea nuevo usuario
     socket.on('new user', async (data, cb) => {
       try {
+        $usumaq=data;
         const reg = await User.findOne({nick:data});
         if (!reg){
           var newUser = new User({
@@ -61,8 +70,11 @@ module.exports = io => {
           });
           await newUser.save();//metodo que ingresa a la base de datos
         }
+
+        io.sockets.emit('nombre de usuario',data);
       }catch (e) {
         console.log(e);
+
       };
 
       if (data in users) {
@@ -151,6 +163,37 @@ module.exports = io => {
         nicksend: socket.nickname,
         nickres:nickp
       });
+    });
+//juego
+    socket.on('desafio juego',(usuarioLogueado,otroUsuario)=>{
+      io.sockets.emit('juguemos',{
+        desafiante: usuarioLogueado,
+        desafiado:otroUsuario
+      });
+
+    });
+
+    ///iniciando juego
+    socket.on('abrir modal',(usuarioLogueado,otroUsuario)=>{
+      io.sockets.emit('abriendo modal',{
+        player1:usuarioLogueado,
+        player2:otroUsuario
+      })
+    })
+
+    socket.on('iniciar el juego',(otroUsuario,usuarioLogueado)=>{
+      io.sockets.emit('activa juego',{
+        player1:otroUsuario,
+        player2:usuarioLogueado
+      });
+
+    });
+    socket.on('carga completa de juego',()=>{
+      io.sockets.emit('esperando juegador');
+    });
+
+    socket.on('puntos rival',(data)=>{
+        io.sockets.emit('punto del otro equipo', data)
     });
 
 

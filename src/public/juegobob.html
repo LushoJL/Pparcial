@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+            integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="lista/css/estilos.css">
+
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
+</head>
+<body>
+<header class="sticky-top" style="margin-bottom: 0">
+    <div class="" style="background: black">
+        <div class="container">
+
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <a class="navbar-brand logo" href="#">
+                    <img src="imagen/logol.png" width="80" class="d-inline-block align-top" alt="">
+                    Milenium.com
+                </a>
+                <button class="navbar-toggler navbar-toggler-rigth" type="button" data-toggle="collapse"
+                        data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse menus" id="navbarTogglerDemo01">
+
+                    <div class="navbar-nav text-center ml-auto">
+                        <div class="bordR"><a class="nav-item nav-link  " href="index.html">Inicio </a></div>
+                        <div class="bordR"><a class="nav-item nav-link " href="libro.html">Libro</a></div>
+                        <div class="bordR"><a class="nav-item nav-link " href="listar.html">Notas</a></div>
+                        <div class="bordR"><a class="nav-item nav-link active" href="chat.html">Chat</a></div>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+</header>
+
+<!--contenido-->
+<div class="container ">
+    <div id="container"></div>
+</div>
+
+<footer>
+    <div class="card text-center footer">
+        <div class="card-footer text-muted ">
+            <p>By: Jose Luis Espinal Luque</p>
+        </div>
+    </div>
+</footer>
+<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://livejs.com/live.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/main.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/phaser@3.23.0/dist/phaser.js"></script>
+<script src="src/init.js" type="module"></script>
+
+</body>
+</html>

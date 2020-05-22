@@ -138,10 +138,26 @@
           <div id="idCard" class="card">
             <div class="card-header bg-dark text-white">
               <h4 id="cabezerapriv">Chateemos</h4>
+
+              <form id="messagegGame-form" class="card-footer">
+                <div class="input-group-append">
+                  <button  class="btn active" style="color: white">
+                    <i class="fas fa-location-arrow"></i> JUGUEMOS
+                  </button>
+                </div>
+              </form>
+
             </div>
             <div  class="card-body">
               <div class="row">
                 <div id="chatPri" class="col-md-12"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <form id="aceptarJuego" class="card-footer">
+
+                  </form>
+                </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
@@ -165,11 +181,33 @@
 
 
       </div>
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#juego">
+        Launch static backdrop modal
+      </button>
+
     </div>
 
   </div>
 
 
+<!--    modals para el juego-->
+
+<div class="modal fade" id="juego" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 850px!important;" role="document">
+    <div class="modal-content">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      <div class="modal-body">
+        <div id="container"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
 <footer>
   <div class="card text-center footer">
     <div class="card-footer text-muted ">
@@ -181,8 +219,11 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://livejs.com/live.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/phaser@3.23.0/dist/phaser.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/main.js"></script>
+
+<script src="src/init.js" type="module"></script>
 
 </body>
 </html>

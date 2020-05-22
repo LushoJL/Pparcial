@@ -1,5 +1,6 @@
-
+let usuaAc;
 $(function () {
+
     // socket.io client side connection
    const socket = io.connect();
     //navbar
@@ -15,7 +16,8 @@ $(function () {
     const $nickError = $('#nickError');//texto para el error <p></p>
     const $nickname = $('#nickname'); //caja de texto para ingresar el nombr de ususario<input></input>
     const $typing = $('#typing');
-    let $users="";
+    let $otroUsuario="";
+    usuaAc=$nickname.val();
     // obtener los nombres de usuarios del dom
 
     //evento de input texto
@@ -45,7 +47,7 @@ $(function () {
           $('#contentWrap').show();
           $('#message').focus();
            $usuario.html(`${data}`);
-           $users = data;
+           $otroUsuario = data;
         } else {
           $nickError.html(`
             <div class="alert alert-danger">
@@ -79,7 +81,7 @@ $(function () {
     socket.on('usernames', data => {
         $(" tr ").remove();
       for(let i = 0; i < data.length; i++) {
-          if (data[i]==$users){
+          if (data[i]==$otroUsuario){
               $("table#usernames").append('<tr class="bg-danger"><td><a id="ver"><i class="fas fa-user"></i>'+data[i]+'</a></td></tr>')
           }else{
               $("table#usernames").append('<tr><td><a id="ver"><i class="fas fa-user"></i>'+data[i]+'</a></td></tr>')
@@ -124,7 +126,7 @@ $(function () {
 
 
 
-    let $userPri = "";
+    let $usuarioLogueado = "";
     const $cardp = $('#idCard');
 
 
@@ -132,13 +134,13 @@ $(function () {
 
         const $clic=$(this).parent().parent().find("td:nth-child(1)").text();
 
-        if ($users != $clic){
-            $userPri= $clic;
+        if ($otroUsuario != $clic){
+            $usuarioLogueado= $clic;
             $("#chatPri p").remove();
-            socket.emit('chat privado',$userPri,$users)
+            socket.emit('chat privado',$usuarioLogueado,$otroUsuario)
             //carga los antiguos mensajes
 
-            $('#cabezerapriv').text($users+ " y "+ $userPri+" Chateando");
+            $('#cabezerapriv').text($otroUsuario+ " y "+ $usuarioLogueado+" Chateando");
             $('#cprivate').show();
 
         }
@@ -150,33 +152,64 @@ $(function () {
             displayMsgprivete(msgs[i]);
         }
     });
+
+
     // obteniendo los elementos del DOM del form de chat interfaz
     const $messageFormp = $('#messagePri-form');//formulario
     const $messageBoxp = $('#messagePri'); //caja de texto
+    const $messageFormGame = $('#messagegGame-form'); //formulario de boton de juego
     const $chatp = $('#chatPri'); //el contenedor del form
     const $typingp = $('#typingpri');
 
 
     $("input#messagePri").on("keyup", function () {
         if ($(this).val()!=""){
-            socket.emit('escribiendop',$users,1);
+            socket.emit('escribiendop',$otroUsuario,1);
 
         }else{
-            socket.emit('escribiendop',$users,0);
+            socket.emit('escribiendop',$otroUsuario,0);
         }
     });
     socket.on("typingp", data=>{
-        if (data.nick!=$users) $typingp.html(`<span class="badge badge-pill badge-secondary">${data.nick}${data.text}</span>`);
+        if (data.nick!=$otroUsuario) $typingp.html(`<span class="badge badge-pill badge-secondary">${data.nick}${data.text}</span>`);
     })
 
 
 
     // eventos
+    //ennviando boton de juego
+const $aceptarJuego=$('#aceptarJuego')//formulario para aceptar juego
+    $messageFormGame.submit(a =>{
+
+        a.preventDefault();//no actualiza la pagina
+
+        socket.emit('desafio juego',$usuarioLogueado,$otroUsuario)
+    });
+
+    socket.on('juguemos',data=>{
+        $aceptarJuego.append(`<button class="btn active" style="color: white"><i class="fas fa-location-arrow"></i> JUGUEMOS(<b>${data.desafiante}</b> vs ${data.desafiado})</button>`);
+    })
+
+    $aceptarJuego.submit(a=>{
+        a.preventDefault();
+        socket.emit('abrir modal',$usuarioLogueado,$otroUsuario);
+
+    })
+    socket.on('abriendo modal',(data)=>{
+        if (data.player1===$usuarioLogueado ||data.player2===$usuarioLogueado ){
+            $('#juego').modal('show');
+            socket.emit('iniciar el juego',data.player1,data.player2);
+        }
+
+
+    })
+
+    //enviando mensaje
     $messageFormp.submit( a => {
         a.preventDefault();
-      //  $chatp.append('<p class="msg"><b>'+$users+'</b>: '+ $messageBoxp.val()+'</p>');
+      //  $chatp.append('<p class="msg"><b>'+$otroUsuario+'</b>: '+ $messageBoxp.val()+'</p>');
         //envia el mensaje al servidor
-        socket.emit('send message private', $messageBoxp.val(),$userPri, data => {
+        socket.emit('send message private', $messageBoxp.val(),$usuarioLogueado, data => {
             $chatp.append(`<p class="error">${data}</p>`)
         });
 
