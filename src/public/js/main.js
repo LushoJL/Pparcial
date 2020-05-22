@@ -192,8 +192,6 @@ const $aceptarJuego=$('#aceptarJuego')//formulario para aceptar juego
 
         }else{
             $aceptarJuego.append(`<p class=""><i class="fas fa-location-arrow"></i> afiaste</p>`);
-
-
         }
     })
 

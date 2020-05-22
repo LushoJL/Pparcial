@@ -316,7 +316,7 @@ class Scene_uno extends Phaser.Scene {
             onStart:()=>{
                 this.finish.setDepth(1);
                 this.textFin.setDepth(1);
-                if (this.puntost<=this.puntoRival){
+                if (this.puntos<=this.puntoRival){
                     this.textFin.setText([
                         'Has perdido con \n'+this.puntos
                     ]);
