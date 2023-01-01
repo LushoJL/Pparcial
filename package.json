@@ -14,7 +14,7 @@
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
     "mongoose": "^5.9.15",
-    "phaser": "^3.23.0",
+    "phaser": "^3.55.2",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
